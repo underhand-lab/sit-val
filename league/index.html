@@ -11,11 +11,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.8.1/math.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.js"></script>
-    <script src="/src/re/input/batter-input-component.js" type="module"></script>
-    <script src="/src/re/input/runner-input-component.js" type="module"></script>
-    <script src="/src/easy-h/module/import-html.js" type="module"></script>
-    <script src="/src/easy-h/ui/bottom-sheet.js" type="module"></script>
-    <script src="/src/markdown.js"></script>
+    
+    <script src="../src/re/input/batter-input-component.js" type="module"></script>
+    <script src="../src/re/input/runner-input-component.js" type="module"></script>
+
+    <script src="../src/easy-h/module/import-html.js" type="module"></script>
+    <script src="../src/easy-h/ui/bottom-sheet.js" type="module"></script>
+    <script src="../src/markdown.js"></script>
     <script src="./input.js" type="module" defer></script>
     <style>
         .input-form {
@@ -42,15 +44,15 @@
     <div class="nav">
         <div>
             <div style="flex-grow: 1">
-                <h1><a href="/">🧮</a></h1>
+                <h1><a href="../">🧮</a></h1>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="flex-grow: 1">
                 <ul>
                     <li>
-                        <a href="/league/" select="true">리그</a>
+                        <a href="../league/" select="true">리그</a>
                     </li>
                     <li>
-                        <a href="/line-up/">타선 기반</a>
+                        <a href="../line-up/">타선 기반</a>
                     </li>
                 </ul>
             </div>
@@ -167,7 +169,7 @@
         <button class="toggle-btn">-</button>
         <hr>
         <div class="content" style="text-align: center;">
-            <runner-input id="runner-league" class="scrolled-content" src="/template/runner-input.html">
+            <runner-input id="runner-league" class="scrolled-content" src="../template/runner-input.html">
             </runner-input>
         </div>
         <hr>

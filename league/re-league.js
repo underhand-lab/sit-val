@@ -1,4 +1,4 @@
-import { calculate_markov_core } from "/src/re/RE.js";
+import { calculate_markov_core } from "../src/re/RE.js";
 
 const stateManager = {
     getIndex(abilities_len, b_idx, out, b3, b2, b1) {

@@ -1,6 +1,6 @@
-import { downloadCSV, readCSV } from "/src/csv/download.js"
-import { BoxList } from "/src/ui/box-list.js";
-import { BatterInput } from "/src/re/input/batter-input-component.js"
+import { downloadCSV, readCSV } from "../src/csv/download.js"
+import { BoxList } from "../src/ui/box-list.js";
+import { BatterInput } from "../src/re/input/batter-input-component.js"
 
 import { calculateLineupRE } from "./re-line-up.js"
 import { PlayerList } from "./player-list.js"

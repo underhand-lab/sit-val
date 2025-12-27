@@ -1,4 +1,4 @@
-import * as TransitionEngine from "/src/re/transition-engine/index.js";
+import * as TransitionEngine from "../src/re/transition-engine/index.js";
 
 import { calculateRE } from "./re-league.js";
 import { setPersonalBatterInput, visualize } from "./visualize.js";

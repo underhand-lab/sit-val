@@ -1,5 +1,5 @@
-import { calculate_markov_core } from "/src/re/RE.js";
-import * as TransitionEngine from "/src/re/transition-engine/index.js";
+import { calculate_markov_core } from "../src/re/RE.js";
+import * as TransitionEngine from "../src/re/transition-engine/index.js";
 
 
 const stateManager = {

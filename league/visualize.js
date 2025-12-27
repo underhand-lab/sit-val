@@ -1,4 +1,4 @@
-import * as Calc from "/src/sabermetrics/calc.js";
+import * as Calc from "../src/sabermetrics/calc.js";
 
 function visualizeRE(RE) {
     if (!RE) {
