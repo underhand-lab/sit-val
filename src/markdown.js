@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener('load', function () {
     // marked.js 라이브러리가 로드되었는지 확인
     if (typeof marked === 'undefined') {
         console.error("marked.js 라이브러리를 찾을 수 없습니다. <script> 태그를 추가했는지 확인해주세요.");
@@ -31,4 +31,4 @@ window.onload = function () {
                 });
         }
     }
-};
+});
