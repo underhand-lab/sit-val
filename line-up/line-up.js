@@ -29,6 +29,7 @@ export function setLineup(element, players, event) {
             event();
         });
     }
+
 }
 
 export function getLineup(element, func) {

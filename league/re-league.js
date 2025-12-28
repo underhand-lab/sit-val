@@ -26,3 +26,51 @@ export function calculateRE(
         stateManager, transitionEngine);
     
 }
+
+function getSituationWeights(N_data, L) {
+    // 1번 타자(0), 0아웃, 무주자 상태에서 시작하는 행을 찾습니다.
+    // N_data[i][j]는 i에서 시작해 j에 머무는 횟수의 기댓값입니다.
+    const startNodeIdx = 0; // 보통 첫 번째 상태가 0아웃 무주자입니다.
+    const expectedVisits = N_data[startNodeIdx];
+
+    let situationWeights = Array(24).fill(0);
+    for (let j = 0; j < expectedVisits.length; j++) {
+        const situationIdx = j % 24; // 타순을 무시하고 24개 상황으로 압축
+        situationWeights[situationIdx] += expectedVisits[j];
+    }
+
+    // 전체 합으로 나누어 비중(Probability)으로 변환
+    const total = situationWeights.reduce((a, b) => a + b, 0);
+    return situationWeights.map(v => v / total);
+    
+}
+
+export function getRunValue(action, runnerAbility, engine,
+    RE_data, N_data) {
+    let totalWeightedValue = 0;
+    const weights = getSituationWeights(N_data, 1);
+
+    for (let i = 0; i < 24; i++) {
+        // 상황별 전이 결과 가져오기
+        const state = stateManager.reverseState(i);
+        const stateObj = { out: state[1], b3: state[2], b2: state[3], b1: state[4] };
+        const transitions = engine.getTransitions(action, stateObj, runnerAbility);
+
+        // 해당 상황에서의 RE24 가치 계산
+        let actionValue = 0;
+        const RE_before = RE_data[i][0];
+
+        for (const t of transitions) {
+            const nextOut = stateObj.out + t.outDelta;
+            const nextIdx = stateManager.getIndex(0, 0, nextOut, t.bases[2], t.bases[1], t.bases[0]);
+            const RE_after = (nextOut < 3) ? RE_data[nextIdx][0] : 0;
+
+            actionValue += t.prob * ((RE_after - RE_before) + t.runs);
+        }
+
+        // 상황 발생 빈도(weights)를 곱해서 누적
+        totalWeightedValue += actionValue * weights[i];
+    }
+
+    return totalWeightedValue;
+}

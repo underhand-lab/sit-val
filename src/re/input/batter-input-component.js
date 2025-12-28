@@ -213,7 +213,7 @@ export class BatterInput extends HTMLElement {
         batterAbilityRaw['sac'] = parseInt(this.sac.value);
 
         return batterAbilityRaw;
-
+        
     }
 
     readJson(json) {
@@ -223,8 +223,8 @@ export class BatterInput extends HTMLElement {
                 this.input[key].value = json[key];
             }
         }
-        this.sac.value = 'sac' in json ? json['sac'] : 0;
-        this.sf.value = 'sf' in json ? json['sf'] : 0;
+        this.sac.value = ('sac' in json) ? json['sac'] : 0;
+        this.sf.value = ('sf' in json) ? json['sf'] : 0;
         if (this.nameInput) {
             this.name = json['name'];
             this.nameInput.value = json['name'];

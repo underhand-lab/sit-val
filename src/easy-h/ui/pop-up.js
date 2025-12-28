@@ -4,7 +4,8 @@ class PopUp extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['window-class'];
+        return ['window-class', 'background-class',
+            'trigger-id', 'open'];
     }
 
     connectedCallback() {
@@ -22,16 +23,16 @@ class PopUp extends HTMLElement {
             getElementsByClassName('close-btn')[0];
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
-                this.close();
+                this.closeAction();
             });
         }
     }
 
-    open() {
+    openAction() {
         this.style = "display:block;"
     }
 
-    close() {
+    closeAction() {
         this.style = "display:none;"
     }
 
@@ -41,13 +42,35 @@ class PopUp extends HTMLElement {
     }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
+        if (attrName == "open") {
+            if (newVal == "open") {
+                this.openAction();
+            }
+            else {
+                this.closeAction();
+            }
+            return;
+        }
         if (attrName == "window-class") {
             this.windowClassName = newVal;
             if (!this.window) return;
             this.window.className = newVal;
             return;
         }
+        if (attrName == "background-class") {
+            this.className = newVal;
+            return;
+            
+        }
+        if (attrName == "trigger-id") {
+            const openBtn = document.getElementById(newVal);
+            if (!openBtn) return;
+            openBtn.addEventListener('click', ()=> {
+                this.setAttribute("open", "open");
+            });
+        }
     }
+
 
 }
 

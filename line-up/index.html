@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.js"></script>
     <script src="../src/easy-h/module/import-html.js" type="module"></script>
     <script src="../src/easy-h/ui/bottom-sheet.js" type="module"></script>
+    <script src="../src/easy-h/ui/pop-up.js" type="module"></script>
     <script src="../src/re/input/batter-input-component.js" type="module"></script>
     <script src="../src/re/input/runner-input-component.js" type="module"></script>
     <script src="../src/markdown.js"></script>
@@ -71,50 +72,27 @@
             </div>
         </div>
     </nav>
+
+    <div id="wrapper">
+        <div id="boxes">
+        </div>
+
+    </div>
+
     <div class="slider">
         <div class="container neumorphism">
             <div style="display:flex; flex-wrap:nowrap;justify-content: center;overflow:auto">
-                <button id="open-line-up-input" style="text-wrap: nowrap">타선 편집</button>
-                <button id="open-batter-list-input" style="text-wrap: nowrap">타자 관리</button>
-                <button id="open-runner-league-input" style="text-wrap: nowrap">리그 주자 능력</button>
+                <div style="display:flex; flex-wrap:nowrap;justify-content: left;flex-grow:1;">
+                    <button id="open-line-up-input" style="text-wrap: nowrap">타선 편집</button>
+                    <button id="open-batter-list-input" style="text-wrap: nowrap">타자 관리</button>
+                    <button id="open-runner-league-input" style="text-wrap: nowrap">리그 주자 능력</button>
+                </div>
+                <div>
+                    <button id="open-tool" style="text-wrap: nowrap">분석 도구</button>
+                </div>
 
             </div>
         </div>
-    </div>
-    <div id="wrapper" style="padding-bottom: 80px;">
-        <div class="container neumorphism">
-            <div id="result-9re">
-            </div>
-        </div>
-        <div class="container neumorphism">
-            <h1>
-                🎯
-                <select id="start-num" style="font-size:20px;display:inline;">
-                    <option value="0">1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
-                    <option value="3">4</option>
-                    <option value="4">5</option>
-                    <option value="5">6</option>
-                    <option value="6">7</option>
-                    <option value="7">8</option>
-                    <option value="8">9</option>
-                </select>
-                번 타자 시점 상황별 기대 득점
-            </h1>
-            <div id="result-re">
-            </div>
-        </div>
-        <div class="container neumorphism">
-            <h1>
-                📊 타자별 이닝 선두타자 분석
-            </h1>
-            <div id="result-leadoff">
-            </div>
-            <div id="result-leadoff">
-            </div>
-        </div>
-
     </div>
     <bottom-sheet id="line-up-input" data-state="close" background-class="panel frostedglassmorphism"
         window-class="toggle container neumorphism" trigger-id="open-line-up-input" open="open">
@@ -153,7 +131,7 @@
                     </calcel>
             </div>
             <hr>
-            <div id="boxes" class="scrolled-content">
+            <div id="players" class="scrolled-content">
             </div>
             <div style="margin-top:auto;">
                 <hr>
@@ -198,49 +176,19 @@
         </batter-input>
         <hr>
     </bottom-sheet>
+    <pop-up id="tool-select" open="close" background-class="panel frostedglassmorphism"
+        window-class="pop-up container neumorphism" trigger-id="open-tool">
+        <h1>분석 도구 추가</h1>
+        <hr>
+        <button id="add-visualizer-leadoff">리드오프</button>
+        <br>
+        <button id="add-visualizer-RE">RE24</button>
+        <br>
+        <button id="add-visualizer-9RE">9이닝당 팀 기대 득점</button>
+        <hr>
+        <button class="close-btn">닫기</button>
 
-    <div id="guide" class="panel frostedglassmorphism" data-state="close">
-        <div class="pop-up container neumorphism">
-            <h1>도움말</h1>
-            <hr>
-            <div class="content">
-                <div class="markdown-container scrolled-content" data-markdown-file="../guide.md">
-                </div>
-            </div>
-            <hr>
-            <button id="close-guide-button">닫기</button>
-        </div>
-    </div>
-    <div id="model-state" class="panel frostedglassmorphism" data-state="close">
-        <div class="pop-up container neumorphism">
-            <h1>주자, 아웃카운트 전이 모델 시나리오</h1>
-            <hr>
-            <div class="markdown-container content" data-markdown-file="../model/model-state.md">
-            </div>
-            <hr>
-            <button id="close-model-state-button">닫기</button>
-        </div>
-    </div>
-    <div id="model-run" class="panel frostedglassmorphism" data-state="close">
-        <div class="pop-up container neumorphism">
-            <h1>득점 전이 모델 시나리오</h1>
-            <hr>
-            <div class="markdown-container content" data-markdown-file="../model/model-run.md">
-            </div>
-            <hr>
-            <button id="close-model-run-button">닫기</button>
-        </div>
-    </div>
-    <div id="model-not" class="panel frostedglassmorphism" data-state="close">
-        <div class="pop-up container neumorphism">
-            <h1>미반영 시나리오</h1>
-            <hr>
-            <div class="markdown-container content" data-markdown-file="../model/model-not.md">
-            </div>
-            <hr>
-            <button id="close-model-not-button">닫기</button>
-        </div>
-    </div>
+    </pop-up>
 </body>
 
 </html>

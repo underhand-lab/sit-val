@@ -5,9 +5,9 @@ import { BatterInput } from "../src/re/input/batter-input-component.js"
 import { calculateLineupRE } from "./re-line-up.js"
 import { PlayerList } from "./player-list.js"
 import { setLineup, getLineup } from "./line-up.js"
-import { visualizeRE, visualizeLeadoff, get9RE } from "./visualize.js";
+import { visualize } from "./visualize.js";
 
-const boxList = new BoxList(document.getElementById("boxes"));
+const boxList = new BoxList(document.getElementById("players"));
 const playerList = new PlayerList();
 const lineupBox = document.getElementById("line-up");
 
@@ -41,17 +41,7 @@ function execute() {
 
     const retval = calculateLineupRE(input_lineup, runner_ability);
 
-    ret = retval['re'];
-    leadoffVector = retval['leadoff_vector'];
-
-    const idx = parseInt(startNumSelector.value);
-
-    document.getElementById('result-re').innerHTML =
-        visualizeRE(ret, idx);
-    document.getElementById('result-leadoff').innerHTML =
-        visualizeLeadoff(leadoffVector, idx);
-    document.getElementById('result-9re').innerHTML =
-        get9RE(ret, leadoffVector, idx);
+    visualize(retval);
 
 }
 
@@ -94,6 +84,7 @@ function addBatter(refAbility) {
 
 const batterEditDiv = document.getElementById('batter-pop-up');
 batterEditDiv.addCloseEvent(() => {
+    setLineup(lineupBox, playerList.getAllPlayers(), execute);
     execute();
 });
 
@@ -120,15 +111,13 @@ batter.setAfterBindInput(() => {
 addBatterBtn.addEventListener('click', () => {
     addBatter(defaultBatterAbility).then(() => {
         setLineup(lineupBox, playerList.getAllPlayers(), execute);
-        const scrollDiv = document.getElementById("boxes");
+        const scrollDiv = document.getElementById("players");
         scrollDiv.scrollTo({
             top: scrollDiv.scrollHeight,
             behavior: 'smooth' // 부드럽게 이동하고 싶을 때 추가
         });
     });
-})
-
-const startNumSelector = document.getElementById("start-num");
+});
 const saveCSVBtn = document.getElementById("save-csv");
 
 saveCSVBtn.addEventListener('click', () => {
@@ -150,7 +139,7 @@ readBatterCSVBtn.addEventListener('change', () => {
         }
         Promise.all(addBatterPromises).then(() => {
             setLineup(lineupBox, playerList.getAllPlayers(), execute);
-            const scrollDiv = document.getElementById("boxes");
+            const scrollDiv = document.getElementById("players");
             scrollDiv.scrollTo({
                 top: scrollDiv.scrollHeight,
                     behavior: 'smooth' // 부드럽게 이동하고 싶을 때 추가

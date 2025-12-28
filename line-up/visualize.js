@@ -1,100 +1,87 @@
-function visualizeRE(RE_results, idx) {
-    if (!RE_results[idx]) {
-        return "";
-    }
+import { VisualizerLeadoff } from "./visualizer/visualizer-leadoff.js";
+import { Visualizer9RE } from "./visualizer/visualizer-9RE.js";
+import { VisualizerRE } from "./visualizer/visualizer-RE.js";
 
-    const runner_states = [
-        "주자 없음", "1루", "2루", "3루",
-        "1, 2루", "1, 3루", "2, 3루", "만루"
-    ];
+import { BoxList } from "../src/ui/box-list.js"
 
-    let html = `
-            <table class="re-table">
-                <thead>
-                    <tr>
-                        <th>주자 상황</th>
-                        <th>0 아웃</th>
-                        <th>1 아웃</th>
-                        <th>2 아웃</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
+let targetRet;
+let visualizers = [];
 
-    for (let j = 0; j < 8; j++) {
-        const re_0_out = RE_results[idx][j].toFixed(3);
-        const re_1_out = RE_results[idx][j + 8].toFixed(3);
-        const re_2_out = RE_results[idx][j + 16].toFixed(3);
+function apply(visualizer) {
 
-        html += `
-            <tr>
-                <td class="runner-state">${runner_states[j]}</td>
-                <td>${re_0_out}</td>
-                <td>${re_1_out}</td>
-                <td>${re_2_out}</td>
-            </tr>
-        `;
-    }
+    if (!targetRet) return;
 
-    html += `
-                </tbody>
-            </table>
-    `;
-
-
-
-    return html;
-}
-
-function visualizeLeadoff(leadoffProbVector, idx) {
-
-    // --- 리드오프 등장 확률 섹션 추가 ---
-    let html = `
-            <table class="leadoff-table">
-                <thead>
-                    <tr>
-                        <th>타순</th>
-                        <th>이닝 시작 확률</th>
-                        <th>9이닝당 시작 횟수</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
-
-    for (let i = 0; i < 9; i++) {
-        // 현재 선택된 타자(idx)의 행을 강조 표시
-        const isSelected = (i === idx) ? 'style="background-color: #f0f7ff; font-weight: bold;"' : '';
-
-        html += `
-            <tr ${isSelected}>
-                <td>${i + 1}번 타자</td>
-                <td>${((leadoffProbVector[i] / 9) * 100).toFixed(2)}%</td>
-                <td>${leadoffProbVector[i].toFixed(3)}회</td>
-            </tr>
-        `;
-    }
-
-    html += `
-                </tbody>
-            </table>
-    `;
-
-    return html;
-}
-
-function get9RE(RE_results, leadoff_vector, idx) {
-    let total_re_9 = 0;
-
-    for (let i = 0; i < 9; i++) {
-        total_re_9 += RE_results[i][0] * leadoff_vector[i];
-    }
-
-    return `
-            <div class="final-score" style="margin-top: 15px; font-size: 1.2em; font-weight: bold; color: #2c3e50;">
-                <p>⚾ 9이닝당 팀 기대 득점: <span style="color: #e74c3c;">${total_re_9.toFixed(3)}</span></p>
-            </div>
-    `;
+    visualizer.setREValue(targetRet);
 
 }
 
-export { visualizeRE, visualizeLeadoff, get9RE };
+const boxList = new BoxList(document.getElementById('boxes'));
+const toolSelect = document.querySelector('#tool-select');
+
+
+function addToolRaw(src, visualizer) {
+    return new Promise((resolve, reject) => {
+        boxList.addBoxTemplate(src, () => {
+            visualizer = visualizers.filter(vs => vs !== visualizer);
+        }, (box) => {
+            box.className = 'container neumorphism';
+
+            visualizer.bindElement(box);
+            visualizers.push(visualizer);
+            apply(visualizer);
+            resolve();
+        });
+    });
+
+}
+
+function addTool(src, visualizer) {
+    addToolRaw(src, visualizer).then(() => {
+        toolSelect.closeAction();
+        let bottom = document.body.scrollHeight;
+        window.scrollTo({ top: bottom, left: 0, behavior: 'smooth' });
+    })
+}
+
+const addVisualizeLeadoff =
+    document.querySelector('#add-visualizer-leadoff');
+const addVisualize9RE =
+    document.querySelector('#add-visualizer-9RE');
+const addVisualizeRE =
+    document.querySelector('#add-visualizer-RE');
+
+addVisualizeLeadoff.addEventListener('click', () => {
+    addTool("./template/visualizer-leadoff.html",
+        new VisualizerLeadoff());
+});
+
+addVisualize9RE.addEventListener('click', () => {
+    addTool("./template/visualizer-9RE.html",
+        new Visualizer9RE());
+});
+
+addVisualizeRE.addEventListener('click', () => {
+    addTool("./template/visualizer-RE.html",
+        new VisualizerRE());
+});
+
+export function visualize(ret) {
+
+    targetRet = ret;
+
+    for (let i = 0; i < visualizers.length; i++) {
+        apply(visualizers[i]);
+    }
+}
+
+addToolRaw("./template/visualizer-9RE.html",
+    new Visualizer9RE()).then(() => {
+
+        addToolRaw("./template/visualizer-RE.html",
+            new VisualizerRE()).then(() => {
+
+                addToolRaw("./template/visualizer-leadoff.html",
+                    new VisualizerLeadoff());
+                    
+            });
+    });
