@@ -7,7 +7,12 @@ export function setLineup(element, players, event) {
     playerList = players;
 
     for (let i = 0; i < 9; i++) {
-        str += `<div><label>${i + 1}번타자</label>: `
+        str += `<div>
+            <label>
+                <e-text key="label-batter-num-${i+1}">
+                    ${i+1}번 타자
+                </e-text>
+            </label>: `
         str += `<select>`;
         for (let j = 0; j < playerList.length; j++) {
             str += `<option value="${j}"`

@@ -26,9 +26,16 @@ export class Visualizer9RE {
 
         return `
             <div class="final-score" style="margin-top: 15px; font-size: 1.2em; font-weight: bold; color: #2c3e50;">
-                <p>⚾ 9이닝당 팀 기대 득점: <span style="color: #e74c3c;">${total_re_9.toFixed(3)}</span></p>
+                <p>⚾ 
+                    <e-text key="label-team-expected-runs-per-9-innings">
+                        9이닝당 팀 기대 득점
+                    </e-text>:
+                    <span style="color: #e74c3c;">
+                        ${total_re_9.toFixed(3)}
+                    </span>
+                </p>
             </div>
-    `;
+        `;
 
     }
 

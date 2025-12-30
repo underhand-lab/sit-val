@@ -1,4 +1,4 @@
-import { loadFile } from "/src/easy-h/module/load-file.js"
+import { loadFile } from "../../easy-h/load-file.js"
 
 class RunnerInput extends HTMLElement {
     constructor() {

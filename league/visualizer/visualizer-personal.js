@@ -97,18 +97,26 @@ export class VisualizerPersonal {
         );
 
         this.element.querySelector('.personal-woba').innerHTML
-            = `가중 출루율(wOBA): ${(playerWobaRaw * this.wOBAScale).toFixed(3)}`;
+            = 
+            `<e-text key="label-personal-extended-woba">
+                    가중 출루율(wOBA)
+            </e-text>: ${(playerWobaRaw * this.wOBAScale).toFixed(3)}`;
 
         this.element.querySelector('.personal-wraa').innerHTML
             = `wRAA: ${round(playerWRAAFromWoba, 2).toFixed(2)}`;
         this.element.querySelector('.personal-wraa-custom').innerHTML
-            = `wRAA(커스텀): ${round(playerCustomWRAA, 2).toFixed(2)}`;
+            = 
+            `<e-text key="label-personal-extended-wraa-custom">
+                    wRAA(커스텀)
+            </e-text>: ${round(playerCustomWRAA, 2).toFixed(2)}`;
 
         this.element.querySelector('.personal-wrcplus').innerHTML
             = `wRC+: ${round(wrcPlus, 2).toFixed(2)}`;
         this.element.querySelector(
             '.personal-wrcplus-custom').innerHTML =
-            `wRC+(커스텀): ${round(wrcPlusCustom, 2).toFixed(2)}`;
+            `<e-text key="label-personal-extended-wrc+-custom">
+                    wRC+(커스텀)
+            </e-text>: ${round(wrcPlusCustom, 2).toFixed(2)}`;
 
     }
 }

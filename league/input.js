@@ -1,4 +1,5 @@
 import * as TransitionEngine from "../src/re/transition-engine/index.js";
+import * as lang from "../src/easy-h/lang/e-text.js"
 
 import { calculateRE, getRunValue } from "./re-league.js";
 import { visualize } from "./visualize.js";

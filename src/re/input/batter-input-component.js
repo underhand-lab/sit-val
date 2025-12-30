@@ -1,5 +1,5 @@
-import { loadFile } from "/src/easy-h/module/load-file.js"
-import { downloadCSV, readCSV } from "/src/csv/download.js"
+import { loadFile } from "../../easy-h/load-file.js"
+import { downloadCSV, readCSV } from "../../csv/download.js"
 
 export class BatterInput extends HTMLElement {
     constructor() {

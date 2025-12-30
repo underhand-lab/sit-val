@@ -24,9 +24,21 @@ export class VisualizerLeadoff {
             <table class="leadoff-table">
                 <thead>
                     <tr>
-                        <th>타순</th>
-                        <th>이닝 시작 확률</th>
-                        <th>9이닝당 시작 횟수</th>
+                        <th>
+                            <e-text key="label-batting-order">
+                                타순
+                            </e-text>
+                        </th>
+                        <th>
+                            <e-text key="label-start-probability">
+                                시작 확률
+                            </e-text>
+                        </th>
+                        <th>
+                            <e-text key="label-number-of-starts">
+                                시작 횟수
+                            </e-text>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,20 +48,28 @@ export class VisualizerLeadoff {
             // 현재 선택된 타자(idx)의 행을 강조 표시
 
             html += `
-            <tr>
-                <td>${i + 1}번 타자</td>
-                <td>
-                    ${((ret['leadoff_vector'][i] / 9) * 100).toFixed(2)}%
-                </td>
-                <td>${ret['leadoff_vector'][i].toFixed(3)}회</td>
-            </tr>
-        `;
+                <tr>
+                    <td>
+                        <e-text key="label-batter-num-${i + 1}">
+                            ${i + 1}번 타자
+                        </e-text>
+                    </td>
+                    <td>
+                        ${((ret['leadoff_vector'][i] / 9) * 100).toFixed(2)}%
+                    </td>
+                    <td>${ret['leadoff_vector'][i].toFixed(3)}
+                        <e-text key="label-times">
+                            회
+                        </e-text>
+                    </td>
+                </tr>
+            `;
         }
 
         html += `
-                </tbody>
-            </table>
-    `;
+            </tbody>
+        </table>
+        `;
 
         return html;
     }

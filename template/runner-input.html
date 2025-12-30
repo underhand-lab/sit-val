@@ -2,28 +2,24 @@
     <h3>폭투</h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_passedball">
-                발생률
-            </label>
+            발생률
             <input type="number" class="input_runner_passedball" value="0.03" step="0.01" min="0" max="1">
         </div>
     </div>
 </div>
 <hr>
 <div>
-    <h3>1루 주자 2루 도루</h3>
+    <h3>
+        <e-text key="input-runner-s-r1-r2">1루 주자 2루 도루</e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_s_r1_r2_safe">
-                성공률
-            </label>
+            <e-text key="input-runner-safe">성공률</e-text>
             <input type="number" class="input_runner_s_r1_r2_safe" value="0.10" step="0.01" min="0" max="1">
         </div>
 
         <div class="input-group">
-            <label for="input_runner_s_r1_r2_out">
-                실패율
-            </label>
+            <e-text key="input-runner-out">실패율</e-text>
             <input type="number" class="input_runner_s_r1_r2_out" value="0.03" step="0.01" min="0" max="1">
         </div>
         <b class="input_runner_s_r1_r1_safe" style="display:none;"></b>
@@ -31,19 +27,17 @@
 </div>
 <hr>
 <div>
-    <h3>2루 주자 3루 도루</h3>
+    <h3>
+        <e-text key="input-runner-s-r2-r3">2루 주자 3루 도루</e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_s_r2_r3_safe">
-                성공률
-            </label>
+            <e-text key="input-runner-safe">성공률</e-text>
             <input type="number" class="input_runner_s_r2_r3_safe" value="0.004" step="0.001" min="0" max="1">
         </div>
 
         <div class="input-group">
-            <label for="input_runner_s_r2_r3_out">
-                실패율
-            </label>
+            <e-text key="input-runner-out">실패율</e-text>
             <input type="number" class="input_runner_s_r2_r3_out" value="0.001" step="0.001" min="0" max="1">
         </div>
         <b class="input_runner_s_r2_r2_safe" style="display:none;"></b>
@@ -51,101 +45,108 @@
 </div>
 <hr>
 <div>
-    <h3>단타: 2루 주자 홈 득점</h3>
+    <h3>
+        <e-text key="input-runner-1B-r2-home">
+            단타: 2루 주자 홈 득점
+        </e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_1B_r2_home_safe">
-                성공률
-            </label>
+            <e-text key="input-runner-safe">성공률</e-text>
             <input type="number" class="input_runner_1B_r2_home_safe" value="0.40" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            <label for="input_runner_1B_r2_home_out">
-                실패율
-            </label>
+            <e-text key="input-runner-out">실패율</e-text>
             <input type="number" class="input_runner_1B_r2_home_out" value="0.05" step="0.01" min="0" max="1">
 
         </div>
         <div class="input-group">
-            시도 x:
+            <e-text key="input-runner-not-try">시도 x: </e-text>
             <b class="input_runner_1B_r2_r3_safe"></b>
         </div>
 
     </div>
     <p style="font-size: 0.8em; color: #666;margin-top:0;">
-        ※ 시도 x는 2루주자 3루 진루
+        ※
+        <e-text key="input-runner-1B-r2-home-desc">
+            시도 x는 2루주자 3루 진루
+        </e-text>
     </p>
 </div>
 <hr>
 <div>
-    <h3>단타: 1루주자 3루 진루</h3>
+    <h3>
+        <e-text key="input-runner-1B-r1-r3">
+            단타: 1루 주자 3루 진루
+        </e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_1B_r1_r3_safe">
-                성공률
-            </label>
+            <e-text key="input-runner-safe">성공률</e-text>
             <input type="number" class="input_runner_1B_r1_r3_safe" value="0.30" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            <label for="input_runner_1B_r1_r3_out">
-                실패율
-            </label>
+            <e-text key="input-runner-out">실패율</e-text>
             <input type="number" class="input_runner_1B_r1_r3_out" value="0.05" step="0.01" min="0" max="1">
         </div>
 
         <div class="input-group">
-            시도 x:
+            <e-text key="input-runner-not-try">시도 x: </e-text>
             <b class="input_runner_1B_r1_r2_safe"></b>
         </div>
     </div>
     <p style="font-size: 0.8em; color: #666;margin-top:0;">
-        ※ 시도 x는 1루주자 2루 진루
+        ※
+        <e-text key="input-runner-1B-r1-r3-desc">
+            시도 x는 1루주자 2루 진루
+        </e-text>
     </p>
 </div>
 <hr>
 <div>
-    <h3>2루타: 1루주자 홈 득점</h3>
+    <h3>
+        <e-text key="input-runner-2B-r1-home">
+            2루타: 1루 주자 홈 득점
+        </e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_2B_r1_home_safe">
-                성공률
-            </label>
+            <e-text key="input-runner-safe">성공률</e-text>
             <input type="number" class="input_runner_2B_r1_home_safe" value="0.7" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            <label for="input_runner_2B_r1_home_out">
-                실패율
-            </label>
+            <e-text key="input-runner-out">실패율</e-text>
             <input type="number" class="input_runner_2B_r1_home_out" value="0.05" step="0.01" min="0" max="1">
 
         </div>
         <div class="input-group">
-            시도 x:
+            <e-text key="input-runner-not-try">시도 x: </e-text>
             <b class="input_runner_2B_r1_r3_safe"></b>
         </div>
     </div>
     <p style="font-size: 0.8em; color: #666;margin-top:0;">
-        ※ 시도 x는 1루주자 3루 진루
+        ※
+        <e-text key="input-runner-2B-r1-home-desc">
+            시도 x는 1루주자 3루 진루
+        </e-text>
     </p>
 </div>
 <hr>
 <div>
-    <h3>희생플라이</h3>
+    <h3>
+        <e-text key="input-runner-fo-r3-home">희생플라이</e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_fo_r3_home_safe">
-                성공률
-            </label>
+            <e-text key="input-runner-safe">성공률</e-text>
             <input type="number" class="input_runner_fo_r3_home_safe" value="0.85" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            <label for="input_runner_fo_r3_home_out">
-                실패율
-            </label>
+            <e-text key="input-runner-out">실패율</e-text>
             <input type="number" class="input_runner_fo_r3_home_out" value="0.05" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            시도 x:
+            <e-text key="input-runner-not-try">시도 x: </e-text>
             <b class="input_runner_fo_r3_r3_safe"></b>
         </div>
 
@@ -153,22 +154,26 @@
 </div>
 <hr>
 <div>
-    <h3>땅볼: 주자 1루</h3>
+    <h3>
+        <e-text key="input-runner-go-r1">땅볼: 주자 1루</e-text>
+    </h3>
     <div class="input-form">
         <div class="input-group">
-            <label for="input_runner_go_r1_r2_out">
+            <e-text key="input-runner-go-b-r2-out">
                 1루주자만 아웃 확률
-            </label>
+            </e-text>
             <input type="number" class="input_runner_go_r1_r2_out" value="0.3" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            <label for="input_runner_go_b_r1_out">
+            <e-text key="input-runner-go-b-r1-out">
                 타자주자만 아웃 확률
-            </label>
+            </e-text>
             <input type="number" class="input_runner_go_b_r1_out" value="0.3" step="0.01" min="0" max="1">
         </div>
         <div class="input-group">
-            병살 확률:
+            <e-text key="input-runner-go-double-play">
+                병살 확률:
+            </e-text>
             <b class="input_runner_go_double_play"></b>
         </div>
         <!--p style="font-size: 0.8em; color: #666;margin-top:0;">※ 나머지 확률은 주자가 머무르거나 일반 아웃으로 처리됩니다.</p>
