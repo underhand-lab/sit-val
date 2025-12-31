@@ -1,7 +1,6 @@
-import * as TransitionEngine from "../src/re/transition-engine/index.js";
-import * as lang from "../src/easy-h/lang/e-text.js"
+import * as TransitionEngine from "../src/sit-val/transition-engine/index.js";
 
-import { calculateRE, getRunValue } from "./re-league.js";
+import { calculateRE } from "./re-league.js";
 import { visualize } from "./visualize.js";
 
 const batterInput = document.getElementById('batter-league');
@@ -14,22 +13,9 @@ function execute() {
     const batterAbility = batterInput.getAbility();
     const runnerAbility = runnerInput.getAbility();
 
-    const ret = calculateRE(
-        batterAbility, runnerAbility, transitionEngine);
-    
-    const actions = ['bb', '1B', '2B', '3B', 'hr', 'so', 'fo', 'go'];
-
-    ret['runValue'] = actions.reduce((acc, action, index) => {
-        const value = getRunValue(action, runnerAbility, transitionEngine, ret.RE_data, ret.N_data);
-
-        acc[action] = {
-            name: action,
-            value: value
-        };
-
-        return acc;
-    }, {});
-
+    const ret = calculateRE(batterAbility,
+        runnerAbility, transitionEngine);
+        
     visualize(ret, batterInput.getAbilityRaw());
 
 }

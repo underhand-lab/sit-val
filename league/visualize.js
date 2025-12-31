@@ -4,6 +4,8 @@ import { VisualizerLeague } from "./visualizer/visualizer-league.js";
 import { VisualizerRunValue } from "./visualizer/visualizer-run-value.js";
 import { Visualizer9RE } from "./visualizer/visualizer-9RE.js";
 import { VisualizerRE24 } from "./visualizer/visualizer-RE24.js";
+import { VisualizerRP24 } from "./visualizer/visualizer-RP24.js";
+import { VisualizerBigInning } from "./visualizer/visualizer-BigInning.js";
 
 import { BoxList } from "../src/ui/box-list.js"
 
@@ -46,6 +48,10 @@ const addVisualize9REBtn =
     document.querySelector('#add-visualizer-9RE');
 const addVisualizeRE24Btn =
     document.querySelector('#add-visualizer-RE24');
+const addVisualizeRP24Btn =
+    document.querySelector('#add-visualizer-RP24');
+const addVisualizeBigInning =
+    document.querySelector('#add-visualizer-big-inning');
 
 addVisualizePersonalBtn.addEventListener('click', () => {
     const visualizePersonal = new VisualizerPersonal();
@@ -77,6 +83,16 @@ addVisualizeRE24Btn.addEventListener('click', () => {
         new VisualizerRE24());
 });
 
+addVisualizeRP24Btn.addEventListener('click', () => {
+    addTool("./template/visualize-RP24.html",
+        new VisualizerRP24());
+});
+
+addVisualizeBigInning.addEventListener('click', () => {
+    addTool("./template/visualize-big-inning.html",
+        new VisualizerBigInning());
+});
+
 let targetRet;
 let targetSaber;
 
@@ -99,7 +115,7 @@ export function visualize(ret, leagueBatter) {
         targetSaber.weights, leagueBatter);
     targetSaber.wOBAScale = 0.33 / targetSaber.lgWobaRaw;
     targetSaber.runPerPa = Calc.calculateLeagueRunPerPA(
-        ret.RE_data[0][0], leagueBatter);
+        ret['R'][0][0], leagueBatter);
 
     for (let i = 0; i < visualizers.length; i++) {
         apply(visualizers[i]);

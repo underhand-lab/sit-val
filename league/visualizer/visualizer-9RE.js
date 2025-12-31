@@ -12,7 +12,7 @@ export class Visualizer9RE {
         
         if (!this.element) return;
         this.element.querySelector('.result-9re').innerHTML =
-            this.visualize9RE(ret.RE_data);
+            this.visualize9RE(ret['R']);
 
     }
 

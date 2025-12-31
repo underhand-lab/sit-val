@@ -134,5 +134,7 @@
     "btn-add-personal-extended-value": "개인 확장 가치",
     "btn-add-league-extended-value": "리그 확장 가치",
     "btn-add-league-batted-ball-value": "타구 가치",
-    "btn-close": "닫기"
+    "btn-close": "닫기",
+    "btn-add-big-inning": "빅이닝",
+    "label-big-inning": "빅이닝"
 }

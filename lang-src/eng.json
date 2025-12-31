@@ -134,5 +134,7 @@
     "btn-add-personal-extended-value": "Personal Extended Value",
     "btn-add-league-extended-value": "Leagues Extended Value",
     "btn-add-league-batted-ball-value": "Batted Ball Value",
-    "btn-close": "close"
+    "btn-close": "close",
+    "btn-add-big-inning": "Big Inning",
+    "label-big-inning": "Big inning"
 }

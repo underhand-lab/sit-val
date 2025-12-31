@@ -84,7 +84,7 @@ export class VisualizerPersonal {
         const playerWRAAFromWoba =
             Calc.calculateWRAAPlusFromWoba(
                 playerWobaRaw, this.lgWobaRaw, 1, playerPA);
-
+                
         const playerCustomWRAA = Calc.calculateCustomWRAAPlus(
             batterAbility, this.ret['runValue']);
 

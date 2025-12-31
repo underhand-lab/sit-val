@@ -1,8 +1,9 @@
-import { calculate_markov_core } from "../src/re/RE.js";
+import { createFundamentalMatrix, getExpectedRewards, getVariance } from "../src/markov/markov-mrp.js";
+import { matrixBuilder } from "../src/sit-val/matrix-builder.js";
 
 const stateManager = {
-    getIndex(abilities_len, b_idx, out, b3, b2, b1) {
-        if (out >= 3) return abilities_len * 24; // 흡수 상태 (이닝 종료)
+    getIndex(b_idx, out, b3, b2, b1) {
+        if (out >= 3) return 24; // 흡수 상태 (이닝 종료)
         // 타자 수에 따라 24 또는 216 상태로 자동 매핑
         return (b_idx * 24) + (out * 8) + (b3 * 4) + (b2 * 2) + b1;
     },
@@ -16,16 +17,16 @@ const stateManager = {
         const b2 = Math.floor((b_rem % 4) / 2);
         const b1 = b_rem % 2;
         return [b_idx, out, b3, b2, b1];
+    },
+
+    nextB(b) {
+        return 0;
+    },
+
+    size() {
+        return 24;
     }
 };
-
-export function calculateRE(
-    batterAbility, runnerAbility, transitionEngine) {
-    
-    return calculate_markov_core([batterAbility], runnerAbility,
-        stateManager, transitionEngine);
-    
-}
 
 function getSituationWeights(N_data, L) {
     // 1번 타자(0), 0아웃, 무주자 상태에서 시작하는 행을 찾습니다.
@@ -42,10 +43,10 @@ function getSituationWeights(N_data, L) {
     // 전체 합으로 나누어 비중(Probability)으로 변환
     const total = situationWeights.reduce((a, b) => a + b, 0);
     return situationWeights.map(v => v / total);
-    
+
 }
 
-export function getRunValue(action, runnerAbility, engine,
+function getRunValue(action, runnerAbility, engine,
     RE_data, N_data) {
     let totalWeightedValue = 0;
     const weights = getSituationWeights(N_data, 1);
@@ -62,7 +63,7 @@ export function getRunValue(action, runnerAbility, engine,
 
         for (const t of transitions) {
             const nextOut = stateObj.out + t.outDelta;
-            const nextIdx = stateManager.getIndex(0, 0, nextOut, t.bases[2], t.bases[1], t.bases[0]);
+            const nextIdx = stateManager.getIndex(0, nextOut, t.bases[2], t.bases[1], t.bases[0]);
             const RE_after = (nextOut < 3) ? RE_data[nextIdx][0] : 0;
 
             actionValue += t.prob * ((RE_after - RE_before) + t.runs);
@@ -74,3 +75,50 @@ export function getRunValue(action, runnerAbility, engine,
 
     return totalWeightedValue;
 }
+
+function calcRE(N, R) {
+    return getExpectedRewards(N, R);
+}
+
+function calcRZero(P_zero) {
+    const N_zero = createFundamentalMatrix(P_zero, 24);
+    const zeroOutProb = P_zero.slice(0, 24).map(row => [row[24]]);
+
+    return getExpectedRewards(N_zero, zeroOutProb);
+
+}
+
+export function calculateRE(
+    batterAbility, runnerAbility, transitionEngine) {
+
+    const { P, P_zero, R, R_sq, R_bin } = matrixBuilder(
+        [batterAbility], runnerAbility,
+        stateManager, transitionEngine);
+
+    const ret = {}
+
+    const N = createFundamentalMatrix(P, 24);
+    ret['R'] = calcRE(N, R);
+    ret['R_zero'] = calcRZero(P_zero);
+    ret['variance'] = getVariance(P, N, R, R_sq, ret['R'], 24);
+    ret['fundamentalMatrix'] = N.toArray();
+
+    const actions = ['bb', '1B', '2B', '3B', 'hr', 'so', 'fo', 'go'];
+
+    ret['runValue'] = actions.reduce((acc, action) => {
+        const value = getRunValue(action,
+            runnerAbility, transitionEngine,
+            ret['R'], ret.fundamentalMatrix);
+
+        acc[action] = {
+            name: action,
+            value: value
+        };
+
+        return acc;
+    }, {});
+    
+
+    return ret;
+
+}   

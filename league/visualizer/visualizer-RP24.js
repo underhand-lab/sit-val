@@ -1,4 +1,4 @@
-export class VisualizerRE24 {
+export class VisualizerRP24 {
 
     constructor() {
 
@@ -13,12 +13,12 @@ export class VisualizerRE24 {
         if (!this.element) return;
 
         this.element.querySelector('.result-re24').innerHTML =
-            this.visualizeRE24(ret['R']);
+            this.visualizeRE24(ret['R_zero']);
 
     }
 
-    visualizeRE24(R) {
-        if (!R) {
+    visualizeRE24(R_zero) {
+        if (!R_zero) {
             // 오류 메시지는 solve_absorbing_chain_equation에서 이미 처리됨
             return "";
         }
@@ -52,16 +52,16 @@ export class VisualizerRE24 {
         `;
 
         for (let j = 0; j < 8; j++) {
-            const re_0_out = R[j][0].toFixed(3);
-            const re_1_out = R[j + 8][0].toFixed(3);
-            const re_2_out = R[j + 16][0].toFixed(3);
+            const re_0_out = (1 - R_zero[j][0]);
+            const re_1_out = (1 - R_zero[j + 8][0]);
+            const re_2_out = (1 - R_zero[j + 16][0]);
 
             html += `
             <tr>
                 <td class="runner-state">${runnerStates[j]}</td>
-                <td>${re_0_out}</td>
-                <td>${re_1_out}</td>
-                <td>${re_2_out}</td>
+                <td>${(re_0_out * 100).toFixed(2)}%</td>
+                <td>${(re_1_out * 100).toFixed(2)}%</td>
+                <td>${(re_2_out * 100).toFixed(2)}%</td>
             </tr>
         `;
         }
