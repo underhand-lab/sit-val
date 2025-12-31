@@ -34,7 +34,7 @@
     "input-runner" : "리그 주자 능력",
     "btn-input-runner": "리그 주자 능력 설정",
 
-    "input-runner-not-try" : "시도 x: ",
+    "input-runner-passed-ball": "폭투", 
     "input-runner-s-r1-r2" : "1루 주자 2루 도루",
     "input-runner-s-r2-r3" : "2루 주자 3루 도루",
     "input-runner-1B-r2-home" : "단타: 2루 주자 홈 득점",
@@ -49,6 +49,8 @@
 
     "input-runner-safe" : "성공률",
     "input-runner-out" : "실패율",
+    "input-runner-not-try" : "시도 x 비율: ",
+    "input-runner-occurred" : "발생율",
 
     "input-runner-1B-r2-home-desc": "시도 x는 2루주자 3루 진루",
     "input-runner-1B-r1-r3-desc": "시도 x는 1루주자 2루 진루",
@@ -136,5 +138,6 @@
     "btn-add-league-batted-ball-value": "타구 가치",
     "btn-close": "닫기",
     "btn-add-big-inning": "빅이닝",
-    "label-big-inning": "빅이닝"
+    "label-big-inning": "빅이닝",
+    "label-big-inning-start": "시작 빅이닝"
 }

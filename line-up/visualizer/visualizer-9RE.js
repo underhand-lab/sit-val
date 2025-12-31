@@ -21,7 +21,7 @@ export class Visualizer9RE {
         let total_re_9 = 0;
 
         for (let i = 0; i < 9; i++) {
-            total_re_9 += ret['re'][i][0] * ret['leadoff_vector'][i];
+            total_re_9 += ret['R'][i][0] * ret['leadoff_vector'][i];
         }
 
         return `

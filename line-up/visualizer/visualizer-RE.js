@@ -29,7 +29,7 @@ export class VisualizerRE {
 
         const idx = parseInt(this.startNumSelector.value);
 
-        if (!ret['re'][idx]) {
+        if (!ret['R'][idx]) {
             return "";
         }
 
@@ -62,9 +62,9 @@ export class VisualizerRE {
         `;
 
         for (let j = 0; j < 8; j++) {
-            const re_0_out = ret['re'][idx][j].toFixed(3);
-            const re_1_out = ret['re'][idx][j + 8].toFixed(3);
-            const re_2_out = ret['re'][idx][j + 16].toFixed(3);
+            const re_0_out = ret['R'][idx][j].toFixed(3);
+            const re_1_out = ret['R'][idx][j + 8].toFixed(3);
+            const re_2_out = ret['R'][idx][j + 16].toFixed(3);
 
             html += `
             <tr>

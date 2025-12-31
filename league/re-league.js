@@ -1,4 +1,5 @@
-import { createFundamentalMatrix, getExpectedRewards, getVariance } from "../src/markov/markov-mrp.js";
+import { createFundamentalMatrix, getExpectedRewards, getVariance }
+    from "../src/markov/markov-mrp.js";
 import { matrixBuilder } from "../src/sit-val/matrix-builder.js";
 
 const stateManager = {
@@ -76,10 +77,6 @@ function getRunValue(action, runnerAbility, engine,
     return totalWeightedValue;
 }
 
-function calcRE(N, R) {
-    return getExpectedRewards(N, R);
-}
-
 function calcRZero(P_zero) {
     const N_zero = createFundamentalMatrix(P_zero, 24);
     const zeroOutProb = P_zero.slice(0, 24).map(row => [row[24]]);
@@ -91,24 +88,24 @@ function calcRZero(P_zero) {
 export function calculateRE(
     batterAbility, runnerAbility, transitionEngine) {
 
-    const { P, P_zero, R, R_sq, R_bin } = matrixBuilder(
+    const { P, P_zero, R, R_sq } = matrixBuilder(
         [batterAbility], runnerAbility,
         stateManager, transitionEngine);
 
     const ret = {}
 
     const N = createFundamentalMatrix(P, 24);
-    ret['R'] = calcRE(N, R);
+    ret['R'] = getExpectedRewards(N, R);
     ret['R_zero'] = calcRZero(P_zero);
     ret['variance'] = getVariance(P, N, R, R_sq, ret['R'], 24);
-    ret['fundamentalMatrix'] = N.toArray();
+    const fundamentalMatrix = N.toArray();
 
     const actions = ['bb', '1B', '2B', '3B', 'hr', 'so', 'fo', 'go'];
 
     ret['runValue'] = actions.reduce((acc, action) => {
         const value = getRunValue(action,
             runnerAbility, transitionEngine,
-            ret['R'], ret.fundamentalMatrix);
+            ret['R'], fundamentalMatrix);
 
         acc[action] = {
             name: action,

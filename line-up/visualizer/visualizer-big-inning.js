@@ -41,27 +41,37 @@ export class VisualizerBigInning {
 
     bindElement(element) {
         this.element = element;
+        this.startNumSelector = element.querySelector(".start-num");
         this.goalRunInput = element.querySelector('.goal-run');
-        this.goalRunInput.addEventListener('change', () => {
-            this.element.querySelector('.result-re24').innerHTML =
-                this.visualizeRE24(this.ret, parseInt(this.goalRunInput.value));
 
+        this.startNumSelector.addEventListener('change', ()=> {
+            this.element.querySelector('.result').innerHTML =
+                this.visualizeRE(this.ret);
         });
+
+        this.goalRunInput.addEventListener('change', ()=> {
+            this.element.querySelector('.result').innerHTML =
+                this.visualizeRE(this.ret);
+        });
+
     }
 
-    setREValue(ret, weights, lgWobaRaw, wOBAScale, runPerPa) {
+    setREValue(ret) {
 
         if (!this.element) return;
-
+        
         this.ret = ret;
-        this.element.querySelector('.result-re24').innerHTML =
-            this.visualizeRE24(ret, parseInt(this.goalRunInput.value));
-
+        this.element.querySelector('.result').innerHTML =
+            this.visualizeRE(ret);
+        
     }
 
-    visualizeRE24(ret, goalRun) {
-        if (!ret) {
-            // 오류 메시지는 solve_absorbing_chain_equation에서 이미 처리됨
+    visualizeRE(ret) {
+
+        const idx = parseInt(this.startNumSelector.value);
+        const goalRun = parseInt(this.goalRunInput.value);
+
+        if (!ret['variance'][idx]) {
             return "";
         }
 
@@ -95,11 +105,15 @@ export class VisualizerBigInning {
 
         for (let j = 0; j < 8; j++) {
             const re_0_out = getBigInningProb(
-                ret['R'][j][0], ret['variance'][j][0], goalRun);
+                ret['R'][idx][j],
+                ret['variance'][idx][j], goalRun);
             const re_1_out = getBigInningProb(
-                ret['R'][j + 8][0], ret['variance'][j + 8][0], goalRun);
+                ret['R'][idx][j + 8],
+                ret['variance'][idx][j + 8], goalRun);
             const re_2_out = getBigInningProb(
-                ret['R'][j + 16][0], ret['variance'][j + 16][0], goalRun);
+                ret['R'][idx][j + 16],
+                ret['variance'][idx][j + 16], goalRun);
+            
 
             html += `
             <tr>
@@ -112,9 +126,11 @@ export class VisualizerBigInning {
         }
 
         html += `
-            </tbody>
-        </table>
+                </tbody>
+            </table>
     `;
+
+
 
         return html;
     }

@@ -1,4 +1,5 @@
-import { createFundamentalMatrix, getExpectedRewards } from "../src/markov/markov-mrp.js";
+import { createFundamentalMatrix, getExpectedRewards, getVariance }
+    from "../src/markov/markov-mrp.js";
 import { matrixBuilder } from "../src/sit-val/matrix-builder.js";
 import * as TransitionEngine from "../src/sit-val/transition-engine/index.js";
 
@@ -31,7 +32,7 @@ const stateManager = {
 
 export function calculateLineupRE(lineup_abilities, runner_ability) {
     const transitionEngine = new TransitionEngine.Standard();
-    const { P, R } = matrixBuilder(
+    const { P, R, R_sq } = matrixBuilder(
         lineup_abilities,
         runner_ability,
         stateManager,
@@ -42,9 +43,11 @@ export function calculateLineupRE(lineup_abilities, runner_ability) {
     const N_SIZE = 216;
     const END_STATE = N_SIZE;
 
-    let N = createFundamentalMatrix(P, N_SIZE);
-    const RE = getExpectedRewards(N, R);
-    N = N.toArray();
+    const N_mat = createFundamentalMatrix(P, N_SIZE);
+    const RE = getExpectedRewards(N_mat, R);
+    const variance = getVariance(P, N_mat, R, R_sq, RE, 216);
+
+    const N = N_mat.toArray();
 
     /* ================================
      * [0] 상태 캐싱
@@ -58,6 +61,7 @@ export function calculateLineupRE(lineup_abilities, runner_ability) {
      * [A] 타자별 24상황 RE
      * ================================ */
     const situational_re = Array.from({ length: L }, () => []);
+    const situational_variance = Array.from({ length: L }, () => []);
 
     for (let b = 0; b < L; b++) {
         for (let out = 0; out < 3; out++) {
@@ -66,6 +70,7 @@ export function calculateLineupRE(lineup_abilities, runner_ability) {
                     for (let b1 = 0; b1 < 2; b1++) {
                         const idx = stateManager.getIndex(b, out, b3, b2, b1);
                         situational_re[b].push(RE[idx][0]);
+                        situational_variance[b].push(variance[idx][0]);
                     }
                 }
             }
@@ -131,7 +136,8 @@ export function calculateLineupRE(lineup_abilities, runner_ability) {
     }
 
     return {
-        re: situational_re,
+        R: situational_re,
+        variance: situational_variance,
         pa_vector,
         leadoff_vector,
         total_re: totalRE

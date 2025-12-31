@@ -5,7 +5,7 @@ import { VisualizerRunValue } from "./visualizer/visualizer-run-value.js";
 import { Visualizer9RE } from "./visualizer/visualizer-9RE.js";
 import { VisualizerRE24 } from "./visualizer/visualizer-RE24.js";
 import { VisualizerRP24 } from "./visualizer/visualizer-RP24.js";
-import { VisualizerBigInning } from "./visualizer/visualizer-BigInning.js";
+import { VisualizerBigInning } from "./visualizer/visualizer-big-inning.js";
 
 import { BoxList } from "../src/ui/box-list.js"
 
@@ -59,37 +59,37 @@ addVisualizePersonalBtn.addEventListener('click', () => {
     visualizePersonal.bindBatterPopUp(
         document.getElementById('batter-personal'));
 
-    addTool("./template/visualize-personal.html",
+    addTool("./template/visualizer-personal.html",
         visualizePersonal);
 });
 
 addVisualizeLeagueBtn.addEventListener('click', () => {
-    addTool("./template/visualize-league.html",
+    addTool("./template/visualizer-league.html",
         new VisualizerLeague());
 });
 
 addVisualizeRunValueBtn.addEventListener('click', () => {
-    addTool("./template/visualize-run-value.html",
+    addTool("./template/visualizer-run-value.html",
         new VisualizerRunValue());
 });
 
 addVisualize9REBtn.addEventListener('click', () => {
-    addTool("./template/visualize-9RE.html",
+    addTool("./template/visualizer-9RE.html",
         new Visualizer9RE());
 });
 
 addVisualizeRE24Btn.addEventListener('click', () => {
-    addTool("./template/visualize-RE24.html",
+    addTool("./template/visualizer-RE24.html",
         new VisualizerRE24());
 });
 
 addVisualizeRP24Btn.addEventListener('click', () => {
-    addTool("./template/visualize-RP24.html",
+    addTool("./template/visualizer-RP24.html",
         new VisualizerRP24());
 });
 
 addVisualizeBigInning.addEventListener('click', () => {
-    addTool("./template/visualize-big-inning.html",
+    addTool("./template/visualizer-big-inning.html",
         new VisualizerBigInning());
 });
 
@@ -123,22 +123,22 @@ export function visualize(ret, leagueBatter) {
 
 }
 
-addToolRaw("./template/visualize-9RE.html",
+addToolRaw("./template/visualizer-9RE.html",
     new Visualizer9RE()).then(() => {
 
-        addToolRaw("./template/visualize-RE24.html",
+        addToolRaw("./template/visualizer-RE24.html",
             new VisualizerRE24()).then(() => {
-                addToolRaw("./template/visualize-league.html",
+                addToolRaw("./template/visualizer-league.html",
                     new VisualizerLeague()).then(() => {
                         const defaultVisualizePersonal
                             = new VisualizerPersonal();
                         defaultVisualizePersonal.bindBatterPopUp(
                             document.getElementById('batter-personal'));
 
-                        addToolRaw("./template/visualize-personal.html",
+                        addToolRaw("./template/visualizer-personal.html",
                             defaultVisualizePersonal).then(() => {
 
-                                addToolRaw("./template/visualize-run-value.html",
+                                addToolRaw("./template/visualizer-run-value.html",
                                     new VisualizerRunValue());
                             });
                     });

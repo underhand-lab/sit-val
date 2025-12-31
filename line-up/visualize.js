@@ -1,6 +1,7 @@
 import { VisualizerLeadoff } from "./visualizer/visualizer-leadoff.js";
 import { Visualizer9RE } from "./visualizer/visualizer-9RE.js";
 import { VisualizerRE } from "./visualizer/visualizer-RE.js";
+import { VisualizerBigInning } from "./visualizer/visualizer-big-inning.js";
 
 import { BoxList } from "../src/ui/box-list.js"
 
@@ -49,6 +50,8 @@ const addVisualize9RE =
     document.querySelector('#add-visualizer-9RE');
 const addVisualizeRE =
     document.querySelector('#add-visualizer-RE');
+const addVisualizeBigInning =
+    document.querySelector('#add-visualizer-big-inning');
 
 addVisualizeLeadoff.addEventListener('click', () => {
     addTool("./template/visualizer-leadoff.html",
@@ -63,6 +66,11 @@ addVisualize9RE.addEventListener('click', () => {
 addVisualizeRE.addEventListener('click', () => {
     addTool("./template/visualizer-RE.html",
         new VisualizerRE());
+});
+
+addVisualizeBigInning.addEventListener('click', () => {
+    addTool("./template/visualizer-big-inning.html",
+        new VisualizerBigInning());
 });
 
 export function visualize(ret) {
@@ -81,7 +89,12 @@ addToolRaw("./template/visualizer-9RE.html",
             new VisualizerRE()).then(() => {
 
                 addToolRaw("./template/visualizer-leadoff.html",
-                    new VisualizerLeadoff());
-                    
+                    new VisualizerLeadoff()).then(() => {
+
+                        addToolRaw("./template/visualizer-big-inning.html",
+                            new VisualizerBigInning());
+
+                    });
+
             });
     });
