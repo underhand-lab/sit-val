@@ -92,7 +92,8 @@
 
     "label-league-extended-value": "League Extended Value",
     "label-league-extended-value-desc-1": "wOBA Scale is a value that adjusts the league average wOBA to be calculated as 0.330.",
-    "label-league-extended-value-desc-2": "R/PA is the total runs scored in the league divided by the total plate appearances in the league. The league runs used in this calculation are estimated based on RE24.",
+    "label-league-extended-value-desc-2": "R/PA is the engine-calculated expected runs divided by the number of plate appearances per inning based on actual league batting statistics.",
+    "label-league-extended-value-desc-3": "R/PA(Custom) is the expected runs calculated by the engine divided by the number of plate appearances per inning predicted by the engine's state transition model.",
     
     "label-league-expected-runs-per-9-innings": "League Expected Runs Per 9 Innings",
     "label-team-expected-runs-per-9-innings": "Team Expected Runs Per 9 Innings",

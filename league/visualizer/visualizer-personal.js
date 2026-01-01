@@ -93,7 +93,7 @@ export class VisualizerPersonal {
         );
 
         const wrcPlusCustom = Calc.calculateWRCPlus(
-            playerCustomWRAA / playerPA, this.runPerPa
+            playerCustomWRAA / playerPA, this.ret['R_PA_Custom']
         );
 
         this.element.querySelector('.personal-woba').innerHTML
@@ -103,12 +103,12 @@ export class VisualizerPersonal {
             </e-text>: ${(playerWobaRaw * this.wOBAScale).toFixed(3)}`;
 
         this.element.querySelector('.personal-wraa').innerHTML
-            = `wRAA: ${round(playerWRAAFromWoba, 2).toFixed(2)}`;
+            = `wRAA: ${round(playerWRAAFromWoba, 2).toFixed(3)}`;
         this.element.querySelector('.personal-wraa-custom').innerHTML
             = 
             `<e-text key="label-personal-extended-wraa-custom">
                     wRAA(커스텀)
-            </e-text>: ${round(playerCustomWRAA, 2).toFixed(2)}`;
+            </e-text>: ${round(playerCustomWRAA, 2).toFixed(3)}`;
 
         this.element.querySelector('.personal-wrcplus').innerHTML
             = `wRC+: ${round(wrcPlus, 2).toFixed(2)}`;

@@ -98,23 +98,33 @@ export function calculateRE(
     ret['R'] = getExpectedRewards(N, R);
     ret['R_zero'] = calcRZero(P_zero);
     ret['variance'] = getVariance(P, N, R, R_sq, ret['R'], 24);
-    const fundamentalMatrix = N.toArray();
+    const fundamentalMatrix = N.toArray();const expectedPAperInning = fundamentalMatrix[0].reduce((sum, val) => sum + val, 0);
 
+    // ... (기존 runValue 및 나머지 로직)
     const actions = ['bb', '1B', '2B', '3B', 'hr', 'so', 'fo', 'go'];
-
     ret['runValue'] = actions.reduce((acc, action) => {
-        const value = getRunValue(action,
-            runnerAbility, transitionEngine,
-            ret['R'], fundamentalMatrix);
-
-        acc[action] = {
-            name: action,
-            value: value
-        };
-
+        const value = getRunValue(action, runnerAbility, transitionEngine, ret['R'], fundamentalMatrix);
+        acc[action] = { name: action, value: value };
         return acc;
     }, {});
     
+    let expectedOutsPerPA = 0;
+
+    actions.forEach(action => {
+        const prob = batterAbility[action]; // 해당 타격 결과가 나올 확률
+        // 주자 상황별로 getTransitions를 호출하여 평균 아웃델타를 구함
+        // 여기서는 단순화를 위해 '0아웃 주자없음' 기준 혹은 전체 평균을 사용
+        const transitions = transitionEngine.getTransitions(action, {out:0, b1:0, b2:0, b3:0}, runnerAbility);
+        const avgOutForThisAction = transitions.reduce((sum, t) => sum + (t.prob * t.outDelta), 0);
+        
+        expectedOutsPerPA += prob * avgOutForThisAction;
+    });
+
+    // 3. 기대 타석 수 재계산 (주루사 포함된 아웃 확률 반영)
+    const correctedPAperInning = 3 / expectedOutsPerPA;
+
+    // 4. 최종 R/PA (Custom)
+    ret['R_PA_Custom'] = ret['R'][0] / correctedPAperInning;
 
     return ret;
 
